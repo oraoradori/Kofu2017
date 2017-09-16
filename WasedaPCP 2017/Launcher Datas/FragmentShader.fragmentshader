@@ -1,0 +1,34 @@
+#version 330 core
+
+in vec2 UV;
+
+in vec4 v_color;
+
+out vec4 color;
+
+uniform sampler2D myTextureSampler;
+
+uniform sampler2D Mask;
+
+uniform vec4 Color;
+
+uniform bool IsTextured;
+
+uniform bool IsText;
+
+void main(){
+	if(IsText){
+		if(texture(myTextureSampler, UV).r == 1.0f){
+			color = Color;
+		}
+		else{
+			color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+		}
+	}
+	else if(IsTextured){
+		color = texture(myTextureSampler, UV);
+	}
+	else{
+		color = Color;
+	}
+}
